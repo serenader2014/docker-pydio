@@ -12,7 +12,6 @@ RUN apt-get update && apt-get install -yq wget unzip \
     && sed -i -e "s/upload_max_filesize\s*=\s*2M/upload_max_filesize = 20G/g" /etc/php5/fpm/php.ini \
     && sed -i -e "s/post_max_size\s*=\s*8M/post_max_size = 20G/g" /etc/php5/fpm/php.ini \
     && php5enmod mcrypt \
-    && service php5-fpm restart \
     && mkdir /var/www/ && chown www-data:www-data /var/www
 
 COPY nginx.conf /etc/nginx/nginx.conf
@@ -28,4 +27,4 @@ EXPOSE 80
 VOLUME /var/www/pydio-core/data/files/
 VOLUME /var/www/pydio-core/data/personal/
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD service php5-fpm restart && nginx
