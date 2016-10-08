@@ -16,11 +16,11 @@ RUN echo 'deb http://httpredir.debian.org/debian jessie main contrib non-free' >
     && sed -i -e "s/post_max_size\s*=\s*8M/post_max_size = 20G/g" /etc/php5/fpm/php.ini \
     && mkdir /var/www/ && chown www-data:www-data /var/www
 
-RUN pear config-set preferred_state alpha && \
-        pear install VersionControl_Git && \
-        pear config-set preferred_state stable && \
-        pear install HTTP_WebDAV_Client && \
-        pear install channel://pear.php.net/HTTP_OAuth-0.3.1 && \
+RUN pear config-set preferred_state alpha \
+    && pear install VersionControl_Git \
+    && pear config-set preferred_state stable  \
+    && pear install HTTP_WebDAV_Client  \
+    && pear install channel://pear.php.net/HTTP_OAuth-0.3.1 \
     && php5enmod mcrypt imap \
     && rm /etc/ssmtp/ssmtp.conf \
     && mv /usr/sbin/sendmail /usr/sbin/sendmail.org \
