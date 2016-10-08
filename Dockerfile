@@ -7,7 +7,7 @@ php5-curl php5-dev php5-gd php5-imagick php5-imap php5-mcrypt php5-memcached php
 php5-mysql php5-pgsql php5-pspell php5-snmp php5-sqlite php5-xmlrpc rsync snmp-mibs-downloader sqlite3 ssmtp \
 subversion tar unzip wget"
 
-RUN echo 'deb http://http.us.debian.org/debian  main non-free' >> /etc/apt/sources.lits \
+RUN echo 'deb http://httpredir.debian.org/debian jessie main contrib non-free' >> /etc/apt/sources.list \
     && apt-get update && apt-get install -yq $APTLIST \
     && apt-get clean -y && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && sed -i -e "s/output_buffering\s*=\s*4096/output_buffering = Off/g" /etc/php5/fpm/php.ini \
