@@ -14,8 +14,6 @@ if  [ -z "$PYDIO_DB_PASSWORD" ]; then
     PYDIO_DB_HOST=127.0.0.1
     PYDIO_DB_USER=root
     PYDIO_DB_PASSWORD=pydiomysqlpwd
-    service mysql start
-    mysql -uroot -e "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('$PYDIO_DB_PASSWORD');;"
 fi
 
 if [ "`mysql -u'$PYDIO_DB_USER' -p'$PYDIO_DB_PASSWORD' -h $PYDIO_DB_HOST -se'USE $PYDIO_DB_NAME;' 2>&1`" == "" ]; then
@@ -31,4 +29,4 @@ sed -i -e "s/MYSQL_HOST/$PYDIO_DB_HOST/g" /var/www/pydio-core/data/plugins/boot.
 sed -i -e "s/MYSQL_PASSWORD/$PYDIO_DB_PASSWORD/g" /var/www/pydio-core/data/plugins/boot.conf/bootstrap.json
 sed -i -e "s/MYSQL_DATABASE/$PYDIO_DB_NAME/g" /var/www/pydio-core/data/plugins/boot.conf/bootstrap.json
 
-service php5-fpm restart && nginx
+nginx
