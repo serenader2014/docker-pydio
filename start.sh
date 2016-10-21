@@ -15,7 +15,7 @@ if  [ -z "$PYDIO_DB_PASSWORD" ]; then
     PYDIO_DB_USER=root
     PYDIO_DB_PASSWORD=pydiomysqlpwd
     service mysql start
-    mysql -uroot -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '$PYDIO_DB_PASSWORD';"
+    mysql -uroot -e "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('$PYDIO_DB_PASSWORD');;"
 fi
 
 mysql -u $PYDIO_DB_USER -p"$PYDIO_DB_PASSWORD" -h $PYDIO_DB_HOST -e "create database $PYDIO_DB_NAME"
