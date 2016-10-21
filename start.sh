@@ -23,6 +23,12 @@ if  [ -z "$PYDIO_DB_PASSWORD" ]; then
     fi
 fi
 
+sed -i -e "s/MYSQL_USER/$PYDIO_DB_USER/g" /var/www/pydio-core/data/plugins/boot.conf/bootstrap.json
+sed -i -e "s/MYSQL_HOST/$PYDIO_DB_HOST/g" /var/www/pydio-core/data/plugins/boot.conf/bootstrap.json
+sed -i -e "s/MYSQL_PASSWORD/$PYDIO_DB_PASSWORD/g" /var/www/pydio-core/data/plugins/boot.conf/bootstrap.json
+sed -i -e "s/MYSQL_DATABASE/$PYDIO_DB_NAME/g" /var/www/pydio-core/data/plugins/boot.conf/bootstrap.json
+sed -i -e "s/use DATABASE_NAME;/use $PYDIO_DB_NAME/g" /var/www/create.mysql
+
 if [ "`mysql -u'$PYDIO_DB_USER' -p'$PYDIO_DB_PASSWORD' -h $PYDIO_DB_HOST -se'USE $PYDIO_DB_NAME;' 2>&1`" == "" ]; then
     echo $PYDIO_DB_NAME exist
 else
@@ -30,11 +36,6 @@ else
     mysql -u $PYDIO_DB_USER -p"$PYDIO_DB_PASSWORD" -h $PYDIO_DB_HOST -e "create database $PYDIO_DB_NAME"
     mysql -u $PYDIO_DB_USER -p"$PYDIO_DB_PASSWORD" -h $PYDIO_DB_HOST < /var/www/create.mysql
 fi
-
-sed -i -e "s/MYSQL_USER/$PYDIO_DB_USER/g" /var/www/pydio-core/data/plugins/boot.conf/bootstrap.json
-sed -i -e "s/MYSQL_HOST/$PYDIO_DB_HOST/g" /var/www/pydio-core/data/plugins/boot.conf/bootstrap.json
-sed -i -e "s/MYSQL_PASSWORD/$PYDIO_DB_PASSWORD/g" /var/www/pydio-core/data/plugins/boot.conf/bootstrap.json
-sed -i -e "s/MYSQL_DATABASE/$PYDIO_DB_NAME/g" /var/www/pydio-core/data/plugins/boot.conf/bootstrap.json
 
 ps -ef | grep -i php5 | grep -v grep
 if [ $?  -eq "0" ]; then
