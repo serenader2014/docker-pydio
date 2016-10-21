@@ -49,8 +49,7 @@ RUN chown -R www-data:www-data /var/www/pydio-core && chmod -R 770 /var/www/pydi
     && chmod 777  /var/www/pydio-core/data/personal/ \
     && service mysql start \
     && mysql -uroot -e "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('pydiomysqlpwd');;" \
-    && service php5-fpm restart
-
+    && service php5-fpm start
 
 EXPOSE 80
 
