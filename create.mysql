@@ -472,7 +472,7 @@ CREATE TABLE `ajxp_users` (
 
 LOCK TABLES `ajxp_users` WRITE;
 /*!40000 ALTER TABLE `ajxp_users` DISABLE KEYS */;
-INSERT INTO `ajxp_users` VALUES ('admin','sha256:1000:iIXMGiDqOm07EBukueeHbLBxnc0/KI2E:lewIfJkpI8G7ZUmBIIxLRQlKEIhoP7Kg','/');
+INSERT INTO `ajxp_users` VALUES ('admin','sha256:1000:SH2I3qCiMqtpKQiiGf16I9GJrZM22q8I:Tib5ZnN0lZDV/DwCC7s0LfZhBxH/myhz','/');
 /*!40000 ALTER TABLE `ajxp_users` ENABLE KEYS */;
 UNLOCK TABLES;
 

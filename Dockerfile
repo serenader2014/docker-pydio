@@ -38,13 +38,15 @@ COPY nginx.conf /etc/nginx/nginx.conf
 WORKDIR /var/www
 RUN wget -q http://downloads.sourceforge.net/project/ajaxplorer/pydio/stable-channel/${PYDIO_VERSION}/pydio-core-${PYDIO_VERSION}.zip \
     && unzip -q pydio-core-${PYDIO_VERSION}.zip && mv pydio-core-${PYDIO_VERSION} pydio-core \
-    && chown -R www-data:www-data /var/www/pydio-core && chmod -R 770 /var/www/pydio-core \
-    && chmod 777  /var/www/pydio-core/data/files/ \
-    && chmod 777  /var/www/pydio-core/data/personal/
+    && rm pydio-core-${PYDIO_VERSION}.zip
 
 ADD ./bootstrap.json /var/www/pydio-core/data/plugins/boot.conf/bootstrap.json
 ADD ./create.mysql /var/www/create.mysql
 ADD ./start.sh /var/www/start.sh
+
+RUN chown -R www-data:www-data /var/www/pydio-core && chmod -R 770 /var/www/pydio-core \
+    && chmod 777  /var/www/pydio-core/data/files/ \
+    && chmod 777  /var/www/pydio-core/data/personal/
 
 EXPOSE 80
 
