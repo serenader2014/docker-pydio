@@ -14,6 +14,13 @@ if  [ -z "$PYDIO_DB_PASSWORD" ]; then
     PYDIO_DB_HOST=127.0.0.1
     PYDIO_DB_USER=root
     PYDIO_DB_PASSWORD=pydiomysqlpwd
+    ps -ef | grep -i mysql | grep -v grep
+    if [ $?  -eq "0" ]; then
+        echo "mysql is running"
+    else
+        echo "mysql is not running, starting mysql..."
+        service start mysql
+    fi
 fi
 
 if [ "`mysql -u'$PYDIO_DB_USER' -p'$PYDIO_DB_PASSWORD' -h $PYDIO_DB_HOST -se'USE $PYDIO_DB_NAME;' 2>&1`" == "" ]; then
@@ -28,5 +35,13 @@ sed -i -e "s/MYSQL_USER/$PYDIO_DB_USER/g" /var/www/pydio-core/data/plugins/boot.
 sed -i -e "s/MYSQL_HOST/$PYDIO_DB_HOST/g" /var/www/pydio-core/data/plugins/boot.conf/bootstrap.json
 sed -i -e "s/MYSQL_PASSWORD/$PYDIO_DB_PASSWORD/g" /var/www/pydio-core/data/plugins/boot.conf/bootstrap.json
 sed -i -e "s/MYSQL_DATABASE/$PYDIO_DB_NAME/g" /var/www/pydio-core/data/plugins/boot.conf/bootstrap.json
+
+ps -ef | grep -i php5 | grep -v grep
+if [ $?  -eq "0" ]; then
+    echo "php5-fpm is running"
+else
+    echo "php5-fpm is not running, starting php5-fpm..."
+    service start php5-fpm
+fi
 
 nginx
