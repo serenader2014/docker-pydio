@@ -51,4 +51,4 @@ EXPOSE 80
 VOLUME /var/www/pydio-core/data/files/
 VOLUME /var/www/pydio-core/data/personal/
 
-CMD ["/bin/bash", /var/www/start.sh"]
+CMD ["/bin/bash", "/var/www/start.sh"]
