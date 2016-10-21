@@ -19,7 +19,7 @@ if  [ -z "$PYDIO_DB_PASSWORD" ]; then
         echo "mysql is running"
     else
         echo "mysql is not running, starting mysql..."
-        service start mysql
+        service mysql start
     fi
 fi
 
@@ -41,7 +41,7 @@ if [ $?  -eq "0" ]; then
     echo "php5-fpm is running"
 else
     echo "php5-fpm is not running, starting php5-fpm..."
-    service start php5-fpm
+    service php5-fpm start
 fi
 
 nginx
