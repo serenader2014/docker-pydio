@@ -1,6 +1,13 @@
 # pydio docker image
 
-pydio version: 6.4.2
+pydio version: 7.0.0
+
+### Image tag
+
+You can find this image in [docker hub](https://hub.docker.com/r/serenader/pydio/), and different image tag reflects to different pydio version.
+
+- Image tag v1.0.0: pydio 6.4.2
+- Image tag v2.0.0: pydio 7.0.0
 
 ### Default admin user
 
