@@ -47,6 +47,7 @@ ADD ./start.sh /var/www/start.sh
 RUN chown -R www-data:www-data /var/www/pydio-core && chmod -R 770 /var/www/pydio-core \
     && chmod 777  /var/www/pydio-core/data/files/ \
     && chmod 777  /var/www/pydio-core/data/personal/ \
+    && mysql_install_db --user=mysql --basedir=/usr/ --ldata=/var/lib/mysql/ \
     && service mysql start \
     && mysql -uroot -e "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('pydiomysqlpwd');;" \
     && service php5-fpm start
@@ -55,5 +56,6 @@ EXPOSE 80
 
 VOLUME /var/www/pydio-core/data/files/
 VOLUME /var/www/pydio-core/data/personal/
+VOLUME /var/lib/mysql
 
 CMD ["/bin/bash", "/var/www/start.sh"]
