@@ -56,7 +56,7 @@ else
 fi
 
 if [ -n $PYDIO_HOST ]; then
-    sed -i -e "s/server_name _;/server_name $PYDIO_HOST/g" /etc/nginx/nginx.conf
+    sed -i -e "s/server_name _;/server_name $PYDIO_HOST;/g" /etc/nginx/nginx.conf
 fi
 
 nginx
