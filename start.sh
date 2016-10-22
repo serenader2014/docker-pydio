@@ -2,7 +2,12 @@ array=(/var/www/pydio-core/data/cache/admin_counted /var/www/pydio-core/data/cac
 
 for file in ${array[@]}
 do
-    [ -e $file ] && echo $file exist || echo $file not exist, try to create it && touch /var/www/pydio-core/data/cache/admin_counted
+    if [ -e $file ]; then
+        echo $file exist
+    else
+        echo $file not exist, try to create it...
+        touch $file
+    fi
 done
 
 : "${PYDIO_DB_HOST:=mysql}"
