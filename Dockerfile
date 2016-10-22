@@ -41,7 +41,7 @@ RUN wget -q http://downloads.sourceforge.net/project/ajaxplorer/pydio/stable-cha
     && rm pydio-core-${PYDIO_VERSION}.zip
 
 ADD ./bootstrap.json /var/www/pydio-core/data/plugins/boot.conf/bootstrap.json
-ADD ./create.mysql /var/www/create.mysql
+ADD ./data /var/www/data
 ADD ./start.sh /var/www/start.sh
 
 RUN chown -R www-data:www-data /var/www/pydio-core && chmod -R 770 /var/www/pydio-core \
