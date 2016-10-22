@@ -1,3 +1,8 @@
+use DATABASE_NAME;
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
 CREATE TABLE `ajxp_tasks` (
   `uid` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
   `type` int(11) NOT NULL,
