@@ -1,6 +1,9 @@
-touch /var/www/pydio-core/data/cache/admin_counted
-touch /var/www/pydio-core/data/cache/diag_result.php
-touch /var/www/pydio-core/data/cache/first_run_passed
+array=(/var/www/pydio-core/data/cache/admin_counted /var/www/pydio-core/data/cache/diag_result.php /var/www/pydio-core/data/cache/first_run_passed)
+
+for file in ${array[@]}
+do
+    [ -e $file ] && echo $file exist || echo $file not exist, try to create it && touch /var/www/pydio-core/data/cache/admin_counted
+done
 
 : "${PYDIO_DB_HOST:=mysql}"
 : ${PYDIO_DB_USER:=${MYSQL_ENV_MYSQL_USER:-root}}
@@ -29,10 +32,12 @@ sed -i -e "s/MYSQL_PASSWORD/$PYDIO_DB_PASSWORD/g" /var/www/pydio-core/data/plugi
 sed -i -e "s/MYSQL_DATABASE/$PYDIO_DB_NAME/g" /var/www/pydio-core/data/plugins/boot.conf/bootstrap.json
 sed -i -e "s/use DATABASE_NAME;/use $PYDIO_DB_NAME/g" /var/www/create.mysql
 
-if [ "`mysql -u'$PYDIO_DB_USER' -p'$PYDIO_DB_PASSWORD' -h $PYDIO_DB_HOST -se'USE $PYDIO_DB_NAME;' 2>&1`" == "" ]; then
-    echo $PYDIO_DB_NAME exist
+mysql -u"$PYDIO_DB_USER" -p"$PYDIO_DB_PASSWORD" -h"$PYDIO_DB_HOST" -se "USE $PYDIO_DB_NAME;"
+
+if [ $? -eq "0" ]; then
+    echo database $PYDIO_DB_NAME exist
 else
-    echo $PYDIO_DB_NAME dont exist
+    echo database $PYDIO_DB_NAME dont exist, try to create database and initialize data...
     mysql -u $PYDIO_DB_USER -p"$PYDIO_DB_PASSWORD" -h $PYDIO_DB_HOST -e "create database $PYDIO_DB_NAME"
     mysql -u $PYDIO_DB_USER -p"$PYDIO_DB_PASSWORD" -h $PYDIO_DB_HOST < /var/www/create.mysql
 fi
