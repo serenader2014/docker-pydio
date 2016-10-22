@@ -47,7 +47,7 @@ if [ $? -eq "0" ]; then
     echo database $PYDIO_DB_NAME exist
     for file in /var/www/data/*.sql; do
         TABLENAME=${file:0: -4}
-        if [ $(mysql -N -s -u root -p -e \
+        if [ $(mysql -N -s -u"$PYDIO_DB_USER" -p"$PYDIO_DB_PASSWORD" -h"$PYDIO_DB_HOST" -e \
             "select count(*) from information_schema.tables where \
                 table_schema='$PYDIO_DB_NAME' and table_name='$TABLENAME';") -eq 1 ]; then
             echo "table $TABLENAME exist"
