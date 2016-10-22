@@ -1,11 +1,11 @@
 FROM nginx:1.11.4
 MAINTAINER serenader xyslive@gmail.com
-ENV PYDIO_VERSION 6.4.2
+ENV PYDIO_VERSION 7.0.0
 
 ENV APTLIST="acl bzip2 imagemagick ghostscript git gzip openssl libsqlite3-dev libssh2-php memcached php5-cli \
 php5-curl php5-fpm php5-dev php5-gd php5-imagick php5-imap php5-mcrypt php5-memcached php-pear php5-ldap php-mail-mimedecode \
 php5-mysql php5-pgsql php5-pspell php5-snmp php5-sqlite php5-xmlrpc rsync snmp-mibs-downloader sqlite3 ssmtp \
-subversion tar unzip wget mysql-server mysql-client"
+subversion tar zip wget mysql-server mysql-client"
 
 RUN echo 'deb http://httpredir.debian.org/debian jessie main contrib non-free' >> /etc/apt/sources.list \
     && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -yq $APTLIST \
@@ -36,8 +36,8 @@ RUN echo 'deb http://httpredir.debian.org/debian jessie main contrib non-free' >
 
 COPY nginx.conf /etc/nginx/nginx.conf
 WORKDIR /var/www
-RUN wget -q http://downloads.sourceforge.net/project/ajaxplorer/pydio/stable-channel/${PYDIO_VERSION}/pydio-core-${PYDIO_VERSION}.zip \
-    && unzip -q pydio-core-${PYDIO_VERSION}.zip && mv pydio-core-${PYDIO_VERSION} pydio-core \
+RUN wget -q https://download.pydio.com/pub/core/archives/pydio-core-${PYDIO_VERSION}.tar.gz \
+    && tar -xf pydio-core-${PYDIO_VERSION}.tar.gz && mv pydio-core-${PYDIO_VERSION} pydio-core \
     && rm pydio-core-${PYDIO_VERSION}.zip
 
 ADD ./bootstrap.json /var/www/pydio-core/data/plugins/boot.conf/bootstrap.json
