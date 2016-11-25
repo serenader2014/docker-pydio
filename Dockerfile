@@ -1,6 +1,6 @@
 FROM nginx:1.11.4
 MAINTAINER serenader xyslive@gmail.com
-ENV PYDIO_VERSION 7.0.0
+ENV PYDIO_VERSION 7.0.2
 
 ENV APTLIST="acl bzip2 imagemagick ghostscript git gzip openssl libsqlite3-dev libssh2-php memcached php5-cli \
 php5-curl php5-fpm php5-dev php5-gd php5-imagick php5-imap php5-mcrypt php5-memcached php-pear php5-ldap php-mail-mimedecode \
