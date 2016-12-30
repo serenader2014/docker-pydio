@@ -30,6 +30,8 @@ if  [ -z "$PYDIO_DB_PASSWORD" ]; then
     if [ $?  -eq "0" ]; then
         echo "mysql is running"
     else
+        chown -R mysql:mysql /var/lib/mysql 
+        mysql_install_db –-user=mysql –ldata=/var/lib/mysql
         echo "mysql is not running, starting mysql..."
         service mysql start
     fi
@@ -72,7 +74,7 @@ else
     service php5-fpm start
 fi
 
-if [ -n $PYDIO_HOST ]; then
+if [ "$PYDIO_HOST" != "" ]; then
     sed -i -e "s/server_name _;/server_name $PYDIO_HOST;/g" /etc/nginx/nginx.conf
 fi
 
