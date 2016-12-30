@@ -35,7 +35,7 @@ if  [ -z "$PYDIO_DB_PASSWORD" ]; then
         service mysql start
         if [ $? != "0" ]; then
             echo "running mysql failed, try to reset /var/lib/mysql ..."
-            mysql_install_db –-user=mysql –ldata=/var/lib/mysql
+            mysql_install_db --user=mysql --ldata=/var/lib/mysql
             service mysql start
             mysql -uroot -e "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('pydiomysqlpwd');"
         fi
