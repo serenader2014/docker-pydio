@@ -47,12 +47,6 @@ docker run --name some-pydio \
 
 If you want to use the internal mysql database server instead of linking a mysql container, you don't have to do anything. The start up script will automatically check if there is an external database or not, if not, it will use the internal database. **Please use the internal database only in development environment.** If you use the internal database server, you may want to keep the data, just link the mysql folder to your host: `-v /some/path/to/mysql:/var/lib/mysql`.
 
-### Current issue
-
-Please note that Pydio v7.x version's file sharing doesn't work, when you create a sharing link, you'll get a 404 error. That's because Pydio's `/data/public` folder is empty, I don't know why. Maybe this is related to Pydio's bug.
-
-If you're relying on file sharing, I suggest you use the v6.x version, which means image tag v1.0.0.
-
 ### Environment variables
 
 #### PYDIO_DB_HOST
